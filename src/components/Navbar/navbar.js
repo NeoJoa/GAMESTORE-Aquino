@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import CartWidget from "../../icon/CartWidget.js";
+
 import "../../App.css";
 function Navbar() {
   const [mostrarLinks, setMostrarLinks] = useState(false);
@@ -12,12 +14,15 @@ function Navbar() {
           <a href="/home">INICIO</a>
           <a href="/store">TIENDA</a>
           <a href="/contact">CONTACTO</a>
-          <a href="#">CARRITO</a>
+          <a href="#">
+            <i>
+              <CartWidget />
+            </i>
+          </a>
         </div>
         <button onClick={() => setMostrarLinks(!mostrarLinks)}>Abrir</button>
       </div>
     </div>
   );
 }
-
 export default Navbar;

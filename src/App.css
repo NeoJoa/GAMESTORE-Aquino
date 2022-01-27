@@ -80,6 +80,14 @@ button:hover {
   cursor: pointer;
 }
 
+.cart-icon {
+  width: 25px;
+}
+
+.shopTitle {
+  text-align: center;
+}
+
 @media only screen and (max-width: 870px) {
   .navbar .right .links a {
     font-size: 15px;
