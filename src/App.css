@@ -87,6 +87,15 @@ button:hover {
 .shopTitle {
   text-align: center;
 }
+.cards {
+  display: flex;
+  justify-content: center;
+}
+
+.cards .card-child {
+  padding: 10px;
+  margin: 10px;
+}
 
 @media only screen and (max-width: 870px) {
   .navbar .right .links a {
