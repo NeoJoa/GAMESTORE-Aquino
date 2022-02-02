@@ -84,6 +84,10 @@ button:hover {
   width: 25px;
 }
 
+.load-icon {
+  text-align: center;
+}
+
 .shopTitle {
   text-align: center;
 }
