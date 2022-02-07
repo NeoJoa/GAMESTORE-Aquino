@@ -1,7 +1,7 @@
-import { products } from "../data/productos";
+import { prod } from "../data/productos";
 
 export const productosAPI = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve(products);
+    resolve(prod);
   }, 2000);
 });

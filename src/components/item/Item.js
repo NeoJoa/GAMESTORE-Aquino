@@ -1,13 +1,18 @@
 import ItemCounter from "../item-counter/ItemCounter";
 
-const Item = ({ id, nombre, precio, cant }) => {
+const Item = ({ id, img, nombre, descripcion, precio, cant }) => {
   return (
     <div className="card-child">
-      <h2>Codigo #{id}</h2>
-      <h2>Juego: {nombre}</h2>
-      <h2>Precio: {precio}</h2>
+      <div>
+        <img src={img} alt="Assassins Creed Odyssey" height="500" />
+      </div>
+      <div className="card-text">
+        <h2>Juego: {nombre}</h2>
+        <p>{descripcion}</p>
+        <h2>${precio}</h2>
 
-      <ItemCounter stock={cant} />
+        <ItemCounter stock={cant} />
+      </div>
     </div>
   );
 };
