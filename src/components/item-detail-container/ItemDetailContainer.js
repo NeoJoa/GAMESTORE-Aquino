@@ -1,41 +1,34 @@
-import { useEffect, useState } from "react";
-import { productosAPI } from "../../helpers/promises";
-import Loading from "../../icon/Loading";
-import Item from "../item/Item";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useProducts from "../../hooks/useProducts";
+import ItemCounter from "../item-counter/ItemCounter";
 
 const ItemDetailContainer = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { products } = useProducts();
+  const { id } = useParams();
+
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
-    getProducts();
-  }, []);
-
-  const getProducts = async () => {
-    try {
-      const result = await productosAPI;
-      setProducts(result);
-    } catch (error) {
-      console.log({ error });
-    } finally {
-      setLoading(false);
+    if (products.length > 0) {
+      const selectedProduct = products.find((product) => product.id === id);
+      setSelectedItem(selectedProduct);
     }
-  };
-
-  if (loading) {
-    return (
-      <div className="load-icon">
-        <Loading />
-      </div>
-    );
-  }
+  }, [products]);
 
   return (
-    <div>
-      <div className="cards">
-        {products.map((product) => (
-          <Item key={product.id} {...product} />
-        ))}
+    <div className="card-child card-detail">
+      <div>
+        {selectedItem && selectedItem.img && (
+          <img src={selectedItem.img} alt="selectedItemImage" height="500" />
+        )}
+      </div>
+      <div className="card-text">
+        <h2>{selectedItem && selectedItem.nombre}</h2>
+        <p>{selectedItem && selectedItem.descripcion}</p>
+        <h2>${selectedItem && selectedItem.precio}</h2>
+        <ItemCounter stock={selectedItem && selectedItem.cant} />
+        <button> Añadir al carrito </button>
       </div>
     </div>
   );

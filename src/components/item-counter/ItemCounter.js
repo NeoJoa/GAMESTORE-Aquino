@@ -20,7 +20,6 @@ const ItemCounter = ({ stock }) => {
         <span>{counter}</span>
         <button onClick={plusCounter}>+</button>
       </div>
-      <button> Agregar al carrito</button>
     </>
   );
 };

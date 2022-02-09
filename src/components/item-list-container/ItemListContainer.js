@@ -1,41 +1,24 @@
-import { useEffect, useState } from "react";
-import { productosAPI } from "../../helpers/promises";
-import Loading from "../../icon/Loading";
+import { useParams } from "react-router-dom";
 import Item from "../item/Item";
+import useProducts from "../../hooks/useProducts";
 
 const ItemListContainer = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  const getProducts = async () => {
-    try {
-      const result = await productosAPI;
-      setProducts(result);
-    } catch (error) {
-      console.log({ error });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="load-icon">
-        <Loading />
-      </div>
-    );
-  }
+  const { id } = useParams();
+  const { products } = useProducts();
+  const filtredProducts = products.filter(({ category }) => category === id);
 
   return (
     <div>
+      <div className="shopTitle">
+        <h1>Bienvenidos a GAMESTORE</h1>
+      </div>
       <div className="cards">
-        {products.map((product) => (
-          <Item key={product.id} {...product} />
-        ))}
+        {!id &&
+          products.map((product) => <Item key={product.id} {...product} />)}
+        {id &&
+          filtredProducts.map((product) => (
+            <Item key={product.id} {...product} />
+          ))}
       </div>
     </div>
   );
