@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useProducts from "../../hooks/useProducts";
 import ItemCounter from "../item-counter/ItemCounter";
-
+const cant = 5;
 const ItemDetailContainer = () => {
   const { products } = useProducts();
   const { id } = useParams();
-
+  const [counter, setCounter] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
@@ -15,6 +15,16 @@ const ItemDetailContainer = () => {
       setSelectedItem(selectedProduct);
     }
   }, [products]);
+
+  const addCounter = () => {
+    if (counter >= cant) return;
+    setCounter(counter + 1);
+  };
+
+  const minusCounter = () => {
+    if (counter <= 0) return;
+    setCounter(counter - 1);
+  };
 
   return (
     <div className="card-child card-detail">
@@ -27,8 +37,10 @@ const ItemDetailContainer = () => {
         <h2>{selectedItem && selectedItem.nombre}</h2>
         <p>{selectedItem && selectedItem.descripcion}</p>
         <h2>${selectedItem && selectedItem.precio}</h2>
-        <ItemCounter stock={selectedItem && selectedItem.cant} />
-        <button> Añadir al carrito </button>
+        <ItemCounter onAdd={addCounter} onTake={minusCounter} count={counter} />
+        <Link to={`/cart`}>
+          <button> Añadir al carrito </button>
+        </Link>
       </div>
     </div>
   );

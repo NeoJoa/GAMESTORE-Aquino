@@ -1,24 +1,10 @@
-import React, { useState } from "react";
-
-const ItemCounter = ({ stock }) => {
-  const [counter, setCounter] = useState(0);
-
-  const minusCounter = () => {
-    if (counter <= 0) return;
-    setCounter(counter - 1);
-  };
-
-  const plusCounter = () => {
-    if (counter >= stock) return;
-    setCounter(counter + 1);
-  };
-
+const ItemCounter = ({ onAdd, onTake, count }) => {
   return (
     <>
       <div>
-        <button onClick={minusCounter}>-</button>
-        <span>{counter}</span>
-        <button onClick={plusCounter}>+</button>
+        <button onClick={onTake}>-</button>
+        <span>{count}</span>
+        <button onClick={onAdd}>+</button>
       </div>
     </>
   );
