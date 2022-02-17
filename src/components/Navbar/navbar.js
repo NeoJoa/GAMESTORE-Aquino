@@ -14,11 +14,11 @@ function Navbar() {
         <div className="links" id={mostrarLinks ? "hidden" : ""}>
           <NavLink to="/category/ps4">JUEGOS PS4</NavLink>
           <NavLink to="/category/ps5">JUEGOS PS5</NavLink>
-          <a href="#">
+          <NavLink to="/cart">
             <i>
               <CartWidget />
             </i>
-          </a>
+          </NavLink>
         </div>
         <button onClick={() => setMostrarLinks(!mostrarLinks)}>Abrir</button>
       </div>

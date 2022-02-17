@@ -27,6 +27,6 @@ export const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis repellendus culpa eius impedit rem suscipit maxime nihil rerum harum, asperiores unde sequi perspiciatis, ipsum perferendis. Deleniti, voluptatem? Velit, aut hic. Quas cumque hic quisquam. Veritatis aperiam saepe necessitatibus temporibus est fugiat facere dolore tenetur veniam sapiente, architecto officia in quas tempore voluptas ullam nemo vel? Ratione ullam quos laudantium asperiores! Quia quidem blanditiis, cum modi quod similique nobis eaque fuga quisquam eligendi exercitationem necessitatibus. Vitae exercitationem provident modi quos sunt hic, adipisci consequuntur similique, qui non deleniti molestiae nihil numquam.",
     category: "ps5",
     precio: "3000",
-    cant: 0,
+    cant: 10,
   },
 ];

@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
+
 import useProducts from "../../hooks/useProducts";
+
 import ItemCounter from "../item-counter/ItemCounter";
-const cant = 5;
+
 const ItemDetailContainer = () => {
   const { products } = useProducts();
   const { id } = useParams();
-  const [counter, setCounter] = useState(0);
+  const { addItem } = useContext(CartContext);
+
   const [selectedItem, setSelectedItem] = useState(null);
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     if (products.length > 0) {
@@ -16,14 +21,11 @@ const ItemDetailContainer = () => {
     }
   }, [products]);
 
-  const addCounter = () => {
-    if (counter >= cant) return;
-    setCounter(counter + 1);
-  };
-
-  const minusCounter = () => {
-    if (counter <= 0) return;
-    setCounter(counter - 1);
+  const handleAddToCart = () => {
+    addItem({
+      item: selectedItem,
+      quantity,
+    });
   };
 
   return (
@@ -37,9 +39,12 @@ const ItemDetailContainer = () => {
         <h2>{selectedItem && selectedItem.nombre}</h2>
         <p>{selectedItem && selectedItem.descripcion}</p>
         <h2>${selectedItem && selectedItem.precio}</h2>
-        <ItemCounter onAdd={addCounter} onTake={minusCounter} count={counter} />
+        <ItemCounter
+          stock={selectedItem?.cant}
+          setSotckSelected={setQuantity}
+        />
         <Link to={`/cart`}>
-          <button> Añadir al carrito </button>
+          <button onClick={handleAddToCart}> Añadir al carrito </button>
         </Link>
       </div>
     </div>
