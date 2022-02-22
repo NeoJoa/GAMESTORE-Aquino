@@ -63,10 +63,6 @@ body {
   margin-right: 15px;
 }
 
-.navbar .links a:hover {
-  color: red;
-}
-
 .navbar .right .links button {
   height: 32px;
   width: 70px;
@@ -80,12 +76,30 @@ button:hover {
   cursor: pointer;
 }
 
+.icon-group {
+  padding: 0%;
+  margin: 0%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
 .cart-icon {
   width: 25px;
 }
 
 .load-icon {
   text-align: center;
+}
+
+.badge {
+  position: relative;
+  top: -13px;
+  right: 5px;
+  width: 20px;
+  text-align: center;
+  background-color: red;
+  border-radius: 50%;
 }
 
 .shopTitle {

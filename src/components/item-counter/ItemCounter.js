@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 const ItemCounter = ({ stock, setSotckSelected }) => {
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
 
   useEffect(() => {
     setSotckSelected(counter);
   }, [counter]);
 
   const minusCounter = () => {
-    if (counter <= 0) return;
+    if (counter <= 1) return;
     setCounter(counter - 1);
   };
 

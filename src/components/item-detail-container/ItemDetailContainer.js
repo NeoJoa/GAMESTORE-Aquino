@@ -38,7 +38,10 @@ const ItemDetailContainer = () => {
       <div className="card-text">
         <h2>{selectedItem && selectedItem.nombre}</h2>
         <p>{selectedItem && selectedItem.descripcion}</p>
-        <h2>${selectedItem && selectedItem.precio}</h2>
+        <h2>
+          {"$"}
+          {selectedItem && selectedItem.precio}
+        </h2>
         <ItemCounter
           stock={selectedItem?.cant}
           setSotckSelected={setQuantity}
