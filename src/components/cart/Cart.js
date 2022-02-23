@@ -24,7 +24,7 @@ const Cart = () => {
           <div>
             <ul>
               {items.map((item) => (
-                <li>
+                <li key={item.item.id}>
                   Juego: {item.item.nombre} - Plataforma: {item.item.category} -
                   Cantidad solicitada: {item.quantity} - Precio: {"$"}
                   {precioXCant(item.item.precio, item.quantity)}

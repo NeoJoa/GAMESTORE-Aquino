@@ -1,20 +1,29 @@
+import { collection, getDocs } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
-
-import useProducts from "../../hooks/useProducts";
-
+import { db } from "../../firebase/config";
 import ItemCounter from "../item-counter/ItemCounter";
 
 const ItemDetailContainer = () => {
-  const { products } = useProducts();
   const { id } = useParams();
   const { addItem } = useContext(CartContext);
-
+  const [products, setProducts] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
+    const itemsCollection = collection(db, "items");
+
+    getDocs(itemsCollection).then((snapshot) => {
+      setProducts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
+    });
+
     if (products.length > 0) {
       const selectedProduct = products.find((product) => product.id === id);
       setSelectedItem(selectedProduct);
