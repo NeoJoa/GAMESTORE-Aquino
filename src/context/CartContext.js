@@ -19,10 +19,6 @@ export const CartProvider = ({ children }) => {
     setItems([]);
   };
 
-  // const isInCart = (item) => {
-  //   return items.some((cartItem) => cartItem.id === item.id);
-  // };
-
   return (
     <CartContext.Provider value={{ items, addItem, removeItem, clear }}>
       {children}

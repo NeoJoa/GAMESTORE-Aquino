@@ -11,6 +11,7 @@ const ItemDetailContainer = () => {
   const [products, setProducts] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(0);
+  const [cant, setCant] = useState(true);
 
   useEffect(() => {
     const itemsCollection = collection(db, "items");
@@ -28,36 +29,51 @@ const ItemDetailContainer = () => {
       const selectedProduct = products.find((product) => product.id === id);
       setSelectedItem(selectedProduct);
     }
+    if (selectedItem?.cant == 0) {
+      setCant(false);
+    }
   }, [products]);
 
   const handleAddToCart = () => {
     addItem({
       item: selectedItem,
-      quantity,
+      quantity: quantity,
     });
   };
 
   return (
-    <div className="card-child card-detail">
-      <div>
-        {selectedItem && selectedItem.img && (
-          <img src={selectedItem.img} alt="selectedItemImage" height="500" />
-        )}
-      </div>
-      <div className="card-text">
-        <h2>{selectedItem && selectedItem.nombre}</h2>
-        <p>{selectedItem && selectedItem.descripcion}</p>
-        <h2>
-          {"$"}
-          {selectedItem && selectedItem.precio}
-        </h2>
-        <ItemCounter
-          stock={selectedItem?.cant}
-          setSotckSelected={setQuantity}
-        />
-        <Link to={`/cart`}>
-          <button onClick={handleAddToCart}> Añadir al carrito </button>
-        </Link>
+    <div className="small-container single-product">
+      <div className="row">
+        <div>
+          {selectedItem && selectedItem.img && (
+            <img src={selectedItem.img} alt="selectedItemImage" height="425" />
+          )}
+        </div>
+        <div className="col-2">
+          <h2>{selectedItem && selectedItem.nombre}</h2>
+          <br></br>
+          <p>{selectedItem && selectedItem.descripcion}</p>
+          <h4>
+            {"$"}
+            {selectedItem && selectedItem.precio}
+          </h4>
+          <ItemCounter
+            stock={selectedItem?.cant}
+            setSotckSelected={setQuantity}
+          />
+          {cant ? (
+            <Link to={`/cart`}>
+              <button className="btn" onClick={handleAddToCart}>
+                {" "}
+                Añadir al carrito{" "}
+              </button>
+            </Link>
+          ) : (
+            <>
+              <span className="alert-stock"> Sin stock</span>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

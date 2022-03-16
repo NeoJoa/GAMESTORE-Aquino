@@ -9,22 +9,45 @@ function Navbar() {
   const [mostrarLinks, setMostrarLinks] = useState(false);
   return (
     <div className="navbar">
-      <div className="left">
-        <Link to="/">GAMESTORE</Link>
+      <div className="logo">
+        <a>
+          <Link to="/">GAMESTORE</Link>
+        </a>
       </div>
-      <div className="right">
-        <div className="links" id={mostrarLinks ? "hidden" : ""}>
-          <NavLink to="/category/ps4">JUEGOS PS4</NavLink>
-          <NavLink to="/category/ps5">JUEGOS PS5</NavLink>
-        </div>
-        <NavLink to="/cart">
-          <i className="icon-group">
-            <CartWidget />
-            {items.length === 0 ? "" : <p className="badge">{items.length}</p>}
-          </i>
-        </NavLink>
+      <nav>
+        <ul id={mostrarLinks ? "hidden" : ""}>
+          <li>
+            <a>
+              <NavLink to="/category/ps4">JUEGOS PS4</NavLink>
+            </a>
+          </li>
+          <li>
+            <a>
+              <NavLink to="/category/ps5">JUEGOS PS5</NavLink>
+            </a>
+          </li>
+          <li>
+            <a>
+              <NavLink to="/category/consola">CONSOLAS</NavLink>
+            </a>
+          </li>
+          <li>
+            <a>
+              <NavLink to="/cart">
+                <i className="icon-group">
+                  <CartWidget />
+                  {items.length === 0 ? (
+                    ""
+                  ) : (
+                    <p className="badge">{items.length}</p>
+                  )}
+                </i>
+              </NavLink>
+            </a>
+          </li>
+        </ul>
         <button onClick={() => setMostrarLinks(!mostrarLinks)}>Abrir</button>
-      </div>
+      </nav>
     </div>
   );
 }

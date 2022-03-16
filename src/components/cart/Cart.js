@@ -6,6 +6,7 @@ import { db } from "../../firebase/config";
 
 const Cart = () => {
   const { items, removeItem, clear } = useContext(CartContext);
+
   const precioXCant = (precio, quantity) => {
     return precio * quantity;
   };
@@ -17,6 +18,7 @@ const Cart = () => {
     telefono: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [valid, setValid] = useState(false);
 
   const handleName = (event) => {
     setBuyer({ ...buyer, nombre: event.target.value });
@@ -31,93 +33,134 @@ const Cart = () => {
   const handdleSubmit = (event) => {
     event.preventDefault();
     setSubmitted(true);
+    if (buyer.nombre && buyer.email && buyer.telefono) {
+      setValid(true);
+    }
   };
 
   // Actualizando Items del Cart y enviar Orden
   const [orderId, setOrderId] = useState(null);
 
   const sendOrder = () => {
-    const order = {
-      buyer,
-      item: items,
-    };
+    if (submitted && valid) {
+      const order = {
+        buyer,
+        item: items,
+      };
 
-    const ordersCollection = collection(db, "orders");
+      const ordersCollection = collection(db, "orders");
 
-    addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
+      addDoc(ordersCollection, order).then(({ id }) => setOrderId(id));
 
-    const batch = writeBatch(db);
-    items.forEach((item) => {
-      const itemRef = doc(db, "items", item.item.id);
-      batch.update(itemRef, { cant: item.item.cant - item.quantity });
-    });
-    batch.commit();
+      const batch = writeBatch(db);
+      items.forEach((item) => {
+        const itemRef = doc(db, "items", item.item.id);
+        batch.update(itemRef, { cant: item.item.cant - item.quantity });
+      });
+      batch.commit();
+      setTimeout(() => {
+        clear();
+      }, 100);
+      alert("Gracias por su Compra");
+    }
   };
 
   return (
     <div>
-      <h1>Carrito de Compras</h1>
+      <h1 className="cart-title">Carrito de Compras</h1>
       {items.length === 0 ? (
-        <div>
+        <div className="cart-title">
           <h2>Tu carrito esta vacio</h2>
 
           <Link to={`/`}>
-            <button>Volver a inicio</button>
+            <button className="btn">Volver a inicio</button>
           </Link>
         </div>
       ) : (
-        <div>
-          <div>
-            <ul>
+        <div className="small-container cart-page">
+          <table>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+            </tr>
+            <>
               {items.map((item) => (
-                <li key={item.item.id}>
-                  Juego: {item.item.nombre} - Plataforma: {item.item.category} -
-                  Cantidad solicitada: {item.quantity} - Precio: {"$"}
-                  {precioXCant(item.item.precio, item.quantity)}
-                  <button onClick={() => removeItem(item.item.id)}>
-                    {" "}
-                    Eliminar{" "}
-                  </button>
-                </li>
+                <tr key={item.item.id}>
+                  <td>
+                    <div className="cart-info">
+                      <img src={item.item.img} />
+                      <div>
+                        <p>{item.item.nombre}</p>
+                        <p>
+                          Precio: {"$"}
+                          {item.item.precio}
+                        </p>
+                        <a onClick={() => removeItem(item.item.id)}>Eliminar</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{item.quantity}</td>
+                  <td>
+                    {"$"}
+                    {precioXCant(item.item.precio, item.quantity)}
+                  </td>
+                </tr>
               ))}
-            </ul>
+            </>
+          </table>
+          <div className="total-price">
+            <table>
+              <tr>
+                <td>
+                  <button className="btn" onClick={clear}>
+                    Vaciar Carrito
+                  </button>
+                </td>
+              </tr>
+            </table>
           </div>
 
-          <button onClick={clear}>Vaciar Carrito</button>
+          <div className="container top">
+            <div className="row">
+              <div className="col-2">
+                <div className="form-container">
+                  <form onSubmit={handdleSubmit}>
+                    <input
+                      onChange={handleName}
+                      value={buyer.nombre}
+                      placeholder="Nombre"
+                      name="name"
+                    />
+                    {submitted && !buyer.nombre ? (
+                      <span>Porfavor ingrese su nombre</span>
+                    ) : null}
+                    <input
+                      onChange={handleEmail}
+                      value={buyer.email}
+                      placeholder="Email"
+                      name="email"
+                    />
+                    {submitted && !buyer.email ? (
+                      <span>Porfavor ingrese su email</span>
+                    ) : null}
+                    <input
+                      onChange={handleCellNumber}
+                      value={buyer.telefono}
+                      placeholder="Telefono"
+                      name="cellnumber"
+                    />
+                    {submitted && !buyer.telefono ? (
+                      <span>Porfavor ingrese su telefono</span>
+                    ) : null}
 
-          <div>
-            <form onSubmit={handdleSubmit}>
-              <input
-                onChange={handleName}
-                value={buyer.nombre}
-                placeholder="Nombre"
-                name="name"
-              />
-              {submitted && !buyer.nombre ? (
-                <span>Porfavor ingrese su nombre</span>
-              ) : null}
-              <input
-                onChange={handleEmail}
-                value={buyer.email}
-                placeholder="Email"
-                name="email"
-              />
-              {submitted && !buyer.email ? (
-                <span>Porfavor ingrese su email</span>
-              ) : null}
-              <input
-                onChange={handleCellNumber}
-                value={buyer.telefono}
-                placeholder="Telefono"
-                name="cellnumber"
-              />
-              {submitted && !buyer.telefono ? (
-                <span>Porfavor ingrese su telefono</span>
-              ) : null}
-              <button onClick={sendOrder} type="submit">
-                Terminar Compra
-              </button>
-            </form>
+                    <button className="btn" onClick={sendOrder} type="submit">
+                      Terminar Compra
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -1,40 +1,36 @@
-.App {
-  width: 100vw;
-  height: 100vh;
-}
-
-body {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar {
+  display: flex;
+  align-items: center;
+  padding: 20px;
   background-color: black;
-  width: 100%;
-  height: 80px;
   font-family: Arial, Helvetica, sans-serif;
-  display: flex;
 }
-.navbar .left {
-  flex: 30%;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  padding-left: 20px;
+nav {
+  flex: 1;
+  text-align: right;
 }
-
-.navbar .right {
-  flex: 70%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+nav ul {
+  display: inline-block;
+  list-style-type: none;
+}
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
 }
 
-.navbar .right .links {
-  max-height: 80px;
-  padding-right: 100px;
+a {
+  text-decoration: none;
+  color: white;
 }
-.navbar .right button {
+
+nav button {
   display: none;
   margin-right: 20px;
   align-items: center;
@@ -45,35 +41,15 @@ body {
   border-radius: 100px;
   font-weight: bold;
 }
-.navbar .right button:hover {
+
+nav button:hover {
   background-color: red;
   border-color: red;
   color: white;
 }
 
-.navbar .right #hidden {
+nav #hidden {
   display: flex;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: white;
-  font-size: 20px;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-.navbar .right .links button {
-  height: 32px;
-  width: 70px;
-  font-size: 14px;
-  border-radius: 100px;
-  background-color: green;
-  color: white;
-}
-
-button:hover {
-  cursor: pointer;
 }
 
 .icon-group {
@@ -104,17 +80,39 @@ button:hover {
 
 .shopTitle {
   text-align: center;
+  margin-top: 50px;
+}
+.bottom {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 200px;
+}
+
+.cont-card {
+  margin-top: 25px;
 }
 .cards {
+  margin: auto;
+  width: 60%;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .cards .card-child {
-  padding: 10px;
-  margin: 10px;
+  width: 250px;
+  height: 325px;
+  margin: 70px 10px 10px 10px;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
 }
-
+.card-image img {
+  width: 80px;
+  height: 80px;
+  max-width: 100%;
+}
 .cards .card-child .card-detail {
   padding: 10px;
   margin: 10px;
@@ -128,8 +126,230 @@ button:hover {
   width: 500px;
 }
 
+.container {
+  max-width: 1300px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.col-2 {
+  flex-basis: 50%;
+  min-width: 300px;
+}
+.btn {
+  display: inline-block;
+  background: #ff523b;
+  padding: 8px 30px;
+  margin: 30px 0;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  transition: background 0.5s;
+}
+.btn:hover {
+  background-color: #563434;
+}
+
+.small-container {
+  max-width: 1080px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.single-product {
+  margin-top: 80px;
+  margin-bottom: 30px;
+}
+
+.single-product .col-2 img {
+  padding: 0;
+}
+
+.single-product .col-2 {
+  padding: 20px;
+}
+
+.single-product h4 {
+  margin: 20px 0;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.single-product .col-2 .counter {
+  padding-left: 35px;
+}
+
+.single-product .alert-stock {
+  display: inline-block;
+  padding: 8px 30px;
+  margin: 30px 0;
+  font-size: 25px;
+  color: red;
+}
+
+.single-product .col-2 .counter button {
+  width: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 40px;
+  color: white;
+  background-color: #ff523b;
+  border: none;
+  font-size: medium;
+}
+button:hover {
+  cursor: pointer;
+}
+
+.cart-title {
+  text-align: center;
+  margin: 70px;
+}
+
+.cart-page {
+  margin: 80px auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cart-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+th {
+  text-align: left;
+  padding: 5px;
+  color: #fff;
+  background: #ff523b;
+  font-weight: normal;
+}
+td {
+  padding: 10px 5px;
+}
+td a {
+  color: red;
+  font-size: 15px;
+  margin-left: 5px;
+}
+td img {
+  width: 80px;
+  height: 100px;
+  margin-right: 10px;
+}
+.total-price {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.total-price table {
+  border-top: 3px solid #ff523b;
+  width: 100%;
+  max-width: 350px;
+}
+td:last-child {
+  text-align: right;
+}
+th:last-child {
+  text-align: right;
+}
+.top {
+  margin-top: 30px;
+}
+.form-container {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  text-align: center;
+  padding: 20px 0;
+  margin: auto;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.form-container form {
+  max-width: 300px;
+  padding: 0 20px;
+  position: absolute;
+  top: 100px;
+}
+form input {
+  width: 100%;
+  height: 30px;
+  margin: 10px 0;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+}
+
+form .btn {
+  width: 100%;
+  border: 100%;
+  margin: 10px 0;
+}
+
+.footer {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #000;
+  color: #8a8a8a;
+  font-size: 14px;
+  padding: 30px 0 20px;
+}
+
+.footer li {
+  padding-bottom: 5px;
+}
+
+.footer p {
+  color: #8a8a8a;
+}
+
+.footer h3 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.footer-col-1 {
+  flex-basis: 30%;
+}
+
+.footer-col-2 {
+  flex: 1;
+  text-align: center;
+}
+.footer-col-2 h1 {
+  color: red;
+
+  margin-bottom: 20px;
+}
+
+.footer-col-3,
+.footer-col-4 {
+  flex-basis: 12%;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.footer hr {
+  border: none;
+  background: #b5b5b5;
+  height: 1px;
+  margin: 20px 0;
+}
+
+.copyright {
+  text-align: center;
+}
+
 @media only screen and (max-width: 870px) {
-  .navbar .right .links a {
+  nav ul li a {
     font-size: 15px;
   }
   .navbar .right button {
@@ -140,15 +360,16 @@ button:hover {
 }
 
 @media only screen and (max-width: 870px) {
-  .navbar .right .links {
+  nav ul {
     display: none;
   }
 
-  .navbar .right button {
-    display: flex;
+  nav button {
+    flex: 1;
+    display: inline-block;
   }
 
-  .navbar .right #hidden {
+  nav #hidden {
     position: absolute;
     left: 0;
     top: 80px;
@@ -159,11 +380,11 @@ button:hover {
     flex-direction: column;
     align-items: center;
   }
-  .navbar .right #hidden a {
+  nav #hidden a {
     margin: 10px;
     font-size: 18px;
   }
-  .navbar .right #hidden button {
+  nav #hidden button {
     align-content: center;
     justify-content: center;
     font-size: 18px;
